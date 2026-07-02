@@ -16,7 +16,7 @@ while True:
     print("1. Product Management")
     print("2. Customer Management")
     print("3. Shopping Cart System")
-    print("4.Order Management ")
+    print("4. Order Management ")
     print("5. Exit")
     
 
