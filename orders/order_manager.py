@@ -4,6 +4,13 @@ from shoping_cart.cart import Add_Cart
 from orders.order_attribute import Order
 from orders.order_inventory import Order_Inventory
 from datetime import datetime
+from payments.upi_payment import UPIpayment
+from payments.card_payment import CardPayment
+from payments.cash_payment import CashPayment
+from notifications.email import email_message
+from notifications.Sms import message
+from notifications.whatsapp import whatsapp_message
+
 class Order_Manage:
     def __init__(self):
         pass
@@ -38,10 +45,8 @@ class Order_Manage:
         print ("--Total Amount --",total)
         print()
     # apply the discount 
-        if total < 5000:
-            print("No Discount :")
-            print()
-        elif total >= 15000:
+    
+        if total >= 15000:
             print("10% Discount Total price  :-")
             print()
             # calculate the discount 
@@ -50,31 +55,38 @@ class Order_Manage:
             print("----Discountd Price---- ",discount_amount)
             print()
             print()
+        
         print("====Please Slect payment method====: ")
         print()
-        print("1. UPI :-")
-        print("2.CASH ON DELIVERY :-")
-        print("3.DEBIT/CREDIT CARD :-")
+        print("1. UPI ")
+        print("2. CASH ON DELIVERY ")
+        print("3. DEBIT/CREDIT CARD ")
         print()
         choice = int(input("Enter your choice :-"))
         print()
         if choice == 1:
             status = "paid"
             payment = "UPI"
-            print("Payment confirm by UPI:-",status,payment)
+            # print("Payment confirm by UPI:-",status,payment)
+            payment = UPIpayment()
         elif choice == 2:
             status = "panding"
             payment = "COD"
-            print("payment pending : ",status,payment)
+            # print("payment pending : ",status,payment)
+            payment = CashPayment()
+            
         elif choice == 3:
             status = "paid"
             payment = "CREDID/DEBIT CARD"
-            print("payment confirm by Credit/Debit Card : ",status,payment)
+            # print("payment confirm by Credit/Debit Card : ",status,payment)
+            payment = CardPayment()
         else:
             print("Invalid choice :")
+            return
+        payment.pay()
     # generate the order 
         print()
-        generate_order = Order(order_id,customer_id,Add_Cart.cart_list.copy(),discount_amount,order_date,status)
+        generate_order = Order(order_id,customer_id,Add_Cart.cart_list.copy(),total-discount_amount,order_date,status)
         Order_Inventory.order[order_id] = generate_order
         print("Order Generated Successfully!")
         print()
@@ -87,7 +99,12 @@ class Order_Manage:
             product.stock = product.stock - quantity 
         # clear cart 
         Add_Cart.cart_list.clear()
-        
+        print("================NOTIFICATION=========================")
+        print()
+        email_message()
+        whatsapp_message()
+        message()
+        print()
         print("================================")
         print("Order Placed Successfull!")
         print("================================")   

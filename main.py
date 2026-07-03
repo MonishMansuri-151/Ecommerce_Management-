@@ -3,12 +3,14 @@ from products.product_manager import Product_manager
 from shoping_cart.cart_manager import Cart_Manager
 from orders.order_manager import Order_Manage
 from sampal_data_for_testing import load_sample_data
+from reports.report_manager import Report_Manager
 
 
 obj_manager = Product_manager()
 cust_manager = Customer_Manager()
 obj_cart_manager = Cart_Manager()
 obj_order = Order_Manage()
+obj_report_manager = Report_Manager()
 
 load_sample_data()
 while True:
@@ -17,7 +19,8 @@ while True:
     print("2. Customer Management")
     print("3. Shopping Cart System")
     print("4. Order Management ")
-    print("5. Exit")
+    print("5. Report Manager ")
+    print("6. Exit")
     
 
     Choice = int(input("Enter your Choices :- "))
@@ -121,9 +124,32 @@ while True:
                 break
             else:
                 print("invalid choice :")
+                
+    elif Choice == 5:
+        while True:
+            print("\n===== REPORT MENU =====")
+            print("1. Product Report")
+            print("2. Customer Report")
+            print("3. Sales Report")
+            print("4. Exit")
+            print("\n")
+            choice = input("Enter your choice :-")
+            if choice == "1":
+                obj_report_manager.customer_report()
+            elif choice == "2":
+                obj_report_manager.product_report()
+            elif choice == "3":
+                obj_report_manager.sales_report()
+            elif choice == "4":
+                print("Exit!")
+                break
+            else:
+                print("invalid choice : ")
+                
+                        
         
                 
-    elif Choice  == 5:
+    elif Choice  == 6:
            print("exit !")
            break     
     else:
