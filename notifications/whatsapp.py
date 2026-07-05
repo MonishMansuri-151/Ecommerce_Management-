@@ -1,3 +1,3 @@
-def whatsapp_message (self):
+def whatsapp_message ():
     print("Whatsapp Message Sent Successfuly ")
     
