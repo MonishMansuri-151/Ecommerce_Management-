@@ -5,7 +5,6 @@ from orders.order_manager import Order_Manage
 from sampal_data_for_testing import load_sample_data
 from reports.report_manager import Report_Manager
 
-
 obj_manager = Product_manager()
 cust_manager = Customer_Manager()
 obj_cart_manager = Cart_Manager()
@@ -135,9 +134,9 @@ while True:
             print("\n")
             choice = input("Enter your choice :-")
             if choice == "1":
-                obj_report_manager.customer_report()
-            elif choice == "2":
                 obj_report_manager.product_report()
+            elif choice == "2":
+                obj_report_manager.customer_report()
             elif choice == "3":
                 obj_report_manager.sales_report()
             elif choice == "4":

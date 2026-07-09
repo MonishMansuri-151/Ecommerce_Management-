@@ -1,5 +1,6 @@
 from products.inventory import Inventory
 from products.product import Product
+from Categories.Constant_Category import CATEGORIES
 
 
 class Product_manager:
@@ -13,11 +14,15 @@ class Product_manager:
         product_id = int(input("Enter product iD : "))
         name = input("Enter product name : ")
         category = input("Enter Category of product : ")
+        if category not in CATEGORIES:
+           print("Invalid Category")
+           return
         price = float(input("Enter price of product : "))
         stock = int(input("Enter stock : "))
         brand = input("Enter the Brande of product : ")
         rating = float(input("Enter rating of product :"))
-        add = Product(product_id, name, category, price, stock, brand, rating)
+        add = Product(product_id, name, category,  stock, brand, rating)
+        add.set_price(price)
         Inventory.products[add.product_id] = add
 
         print(" PRODUCT ADD DICTIONARY --------- : ")
